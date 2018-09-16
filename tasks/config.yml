@@ -1,5 +1,4 @@
 ---
-
 - name: Update dnsmasq config
   become: yes
   template:
@@ -19,5 +18,3 @@
     group: root
     mode: 0644  
   notify: reload dnsmasq
-
-

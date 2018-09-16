@@ -50,7 +50,7 @@ galaxy_info:
         - bionic
 
   galaxy_tags:
-    - system
+    - network
     - linux
     - ubuntu
     - dns

@@ -1,8 +1,14 @@
 ---
 # handlers file for dnsmasq
 
-- name: reload dnsmasq
+- name: dnsmasq reload
   become: yes
   service: 
     name: dnsmasq
     state: reloaded
+
+- name: dnsmasq restart
+  become: yes
+  service: 
+    name: dnsmasq
+    state: restarted

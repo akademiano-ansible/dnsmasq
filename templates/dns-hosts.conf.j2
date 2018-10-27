@@ -1,0 +1,4 @@
+{% for host in dhcp_hosts %}
+  address=/{{host.name}}/{{host.ip}}
+  address=/{{host.name}}.local/{{host.ip}}
+{% endfor %}

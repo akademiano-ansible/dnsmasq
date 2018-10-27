@@ -7,7 +7,7 @@
     owner: root
     group: root
     mode: 0644
-  notify: reload dnsmasq
+  notify: dnsmasq restart
 
 - name: Update dnsmasq dhcp reservation
   become: yes
@@ -17,4 +17,15 @@
     owner: root
     group: root
     mode: 0644  
-  notify: reload dnsmasq
+  notify: dnsmasq restart
+
+- name: Update dnsmasq dns hosts
+  become: yes
+  template:
+    src: dns-hosts.conf.j2
+    dest: /etc/dnsmasq.d/dns-hosts.conf
+    owner: root
+    group: root
+    mode: 0644  
+  notify: dnsmasq restart
+

@@ -7,6 +7,13 @@
     name: dnsmasq
     state: latest
 
+- name: disable systemd-resolved
+  service:
+    name: systemd-resolved
+    state: stopped
+    enabled: false
+  become: yes
+
 - name: configure dnsmasq
   include_tasks: 'config.yml'
 

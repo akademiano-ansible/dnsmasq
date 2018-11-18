@@ -2,7 +2,6 @@
   become: yes
   ufw:
     rule: allow
-    interface: eth1
     direction: in
     from_port: 68
     to_port: 67

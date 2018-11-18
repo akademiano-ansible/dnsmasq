@@ -65,8 +65,9 @@ no-poll
 # non-public domains.
 #server=/localnet/192.168.0.1
 
-server=8.8.8.8
-server=8.8.4.4
+{% for server in dnsmasq_servers%}
+server={{server}}
+{% endfor %}
 
 # Example of routing PTR queries to nameservers: this will send all
 # address->name queries for 192.168.3/24 to nameserver 10.1.2.3
@@ -74,7 +75,9 @@ server=8.8.4.4
 
 # Add local-only domains here, queries in these domains are answered
 # from /etc/hosts or DHCP only.
-local=/dev.local/
+{% for domain in dnsmasq_local_domains %}
+local=/{{domain}}/
+{% endfor %}
 
 # Add domains which you want to force to an IP address here.
 # The example below send any host in double-click.net to a local
@@ -115,7 +118,9 @@ local=/dev.local/
 # If you want dnsmasq to provide only DNS service on an interface,
 # configure it as shown above, and then use the following line to
 # disable DHCP and TFTP on it.
-no-dhcp-interface=eth0
+{% if dnsmasq_no_dhcp_interface %}
+no-dhcp-interface={{dnsmasq_no_dhcp_interface}}
+{% endif %}
 
 # On systems which support it, dnsmasq binds the wildcard address,
 # even when it is listening on only some interfaces. It then discards
@@ -157,7 +162,9 @@ no-hosts
 # a lease time. If you have more than one network, you will need to
 # repeat this for each network on which you want to supply DHCP
 # service.
-dhcp-range=192.168.50.100,192.168.50.150,1h
+{% if dnsmasq_dhcp_range %}
+dhcp-range={{ dnsmasq_dhcp_range }}
+{% endif %}
 
 # This is an example of a DHCP range where the netmask is given. This
 # is needed for networks we reach the dnsmasq DHCP server via a relay
@@ -328,6 +335,9 @@ dhcp-range=192.168.50.100,192.168.50.150,1h
 # any dhcp-options. If you use Windows clients and Samba, there
 # are some options which are recommended, they are detailed at the
 # end of this section.
+{% for option in dnsmasq_dhcp_options %}
+dhcp-option={{option}}
+{% endfor %}
 
 # Override the default route supplied by dnsmasq, which assumes the
 # router is the same machine as the one running dnsmasq.
@@ -335,7 +345,6 @@ dhcp-range=192.168.50.100,192.168.50.150,1h
 
 # Do the same thing, but using the option name
 #dhcp-option=option:router,1.2.3.4
-dhcp-option=option:router,192.168.50.1
 
 # Override the default route supplied by dnsmasq and send no default
 # route at all. Note that this only works for the options sent by
@@ -346,10 +355,7 @@ dhcp-option=option:router,192.168.50.1
 # Set the NTP time server addresses to 192.168.0.4 and 10.10.0.5
 #dhcp-option=option:ntp-server,192.168.0.4,10.10.0.5
 
-dhcp-option=option:dns-server,192.168.50.1
-
 #default domain
-dhcp-option=15,local
 
 # Send DHCPv6 option. Note [] around IPv6 addresses.
 #dhcp-option=option6:dns-server,[1234::77],[1234::88]

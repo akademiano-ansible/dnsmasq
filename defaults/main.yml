@@ -3,8 +3,12 @@
 dnsmasq_servers:
   - 1.1.1.1
   - 8.8.8.8
-dnsmasq_local_domains:
-  - local
+dnsmasq_servers_for_domain: []
+dnsmasq_local_domains: []
+#  - local
+dnsmasq_dhcp_domain: local
+
+dnsmasq_custom_dns_hosts: []
 #dnsmasq_no_dhcp_interface:
 
 dnsmasq_dhcp_range: 192.168.1.10,192.168.1.200,6h

@@ -1,4 +1,9 @@
 {% for host in dhcp_hosts %}
   address=/{{host.name}}/{{host.ip}}
-  address=/{{host.name}}.local/{{host.ip}}
+  address=/{{host.name}}.{{dnsmasq_dhcp_domain}}/{{host.ip}}
+{% endfor %}
+
+{% for host in dnsmasq_custom_dns_hosts %}
+  address=/{{host.name}}/{{host.ip}}
+  address=/{{host.name}}/{{host.ip}}
 {% endfor %}

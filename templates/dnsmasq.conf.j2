@@ -69,12 +69,18 @@ no-poll
 server={{server}}
 {% endfor %}
 
+{% for server in dnsmasq_servers_for_domain%}
+server=/{{server.domain}}/{{server.server}}
+{% endfor %}
+
+
 # Example of routing PTR queries to nameservers: this will send all
 # address->name queries for 192.168.3/24 to nameserver 10.1.2.3
 #server=/3.168.192.in-addr.arpa/10.1.2.3
 
 # Add local-only domains here, queries in these domains are answered
 # from /etc/hosts or DHCP only.
+local=/{{dnsmasq_dhcp_domain}}/
 {% for domain in dnsmasq_local_domains %}
 local=/{{domain}}/
 {% endfor %}
